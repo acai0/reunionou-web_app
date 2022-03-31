@@ -14,12 +14,6 @@
                 </div>
               </div>
               <div class="field">
-                <label class="label">Pseudo</label>
-                <div class="control">
-                  <input class="input" v-model="modifierProfil.username" />
-                </div>
-              </div>
-              <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
                   <input class="input" v-model="modifierProfil.email" />
@@ -81,4 +75,6 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style lang="scss">
+ @import "../scss/bulma.scss";
+</style>

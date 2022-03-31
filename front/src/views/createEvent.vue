@@ -66,6 +66,7 @@
 </template>
 
 <style lang="scss">
+ @import "../scss/bulma.scss";
 </style>
 
 <script>

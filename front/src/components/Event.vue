@@ -29,7 +29,7 @@ data() {
 methods : {
       deleteevent(){
             if(confirm("êtes-vous sûre de vouloir supprimer cette évènement ?")){
-       this.$api.delete(`channels/${this.event.id}`)
+       this.$api.delete(`events/${this.event.id}`)
        .then( () =>{
          this.afficher = false;
        })
@@ -44,12 +44,8 @@ methods : {
 }
 </script>
 
-<style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
-}
-.fade-enter, .fade-leave-to{
-  opacity: 0;
-}
+<style lang="scss">
+ @import "../scss/bulma.scss";
 </style>
+
 

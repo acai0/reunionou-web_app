@@ -33,6 +33,6 @@ props : ["event"],
 }
 </script>
 
-<style>
-
+<style lang="scss">
+ @import "../scss/bulma.scss";
 </style>

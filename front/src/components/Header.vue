@@ -4,7 +4,7 @@
   <!-- rendre le header responsive -->
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <router-link class="navbar-item coop" to="/"><a href="/"><img src="../img/Reunionou.png"/></a></router-link>
+      <router-link class="navbar-item reu" to="/"><a href="/"><img src="../img/Reunionou.png"/></a></router-link>
     </div>
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
@@ -31,13 +31,5 @@ export default {
 </script>
 
 <style lang="scss">
-.header{
-  background-color: rgb(255, 255, 128);;
-}
-.navbar-item{
-  color : rgb(0, 0, 0);
-}
-.coop{
-    font-family: 'Comic Sans Serif', sans-serif;
-}
+ @import "../scss/bulma.scss";
 </style>

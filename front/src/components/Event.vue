@@ -1,25 +1,25 @@
 <template>
       <transition name="fade">
-            <article class="media box" v-if="conversation && afficher">
+            <article class="media box" v-if="event && afficher">
                   <div class="media-content">
                   <div class="content">
                         <p>
-                        <router-link :to="{name : 'Conversation', params :{id: conversation.id}}">
-                              <h5 class="title is-5">{{conversation.topic}}</h5>
-                              <p class="subtitle is-6 tag is-rounded is-warning">{{conversation.label}}</p>
+                        <router-link :to="{name : 'Event', params :{id: event.id}}">
+                              <h5 class="title is-5">{{event.topic}}</h5>
+                              <p class="subtitle is-6 tag is-rounded is-warning">{{event.label}}</p>
                         </router-link>
                         </p>
                   </div>
                   </div>
                   <div class="media-right">
-                        <router-link div="box" :to="{name : 'EditConversation', params :{id: conversation.id}}" class="button is-success is-small" >Modifier</router-link>     <a div="box" @click="deleteConversation" class="button is-danger is-small">Supprimer</a>
+                        <router-link div="box" :to="{name : 'EditEvent', params :{id: event.id}}" class="button is-success is-small" >Modifier</router-link>     <a div="box" @click="deleteevent" class="button is-danger is-small">Supprimer</a>
                   </div>
             </article>    
       </transition>                                   
 </template>
 <script>
 export default {
-props : ["conversation"],
+props : ["event"],
 data() {
       return {
             afficher : true,
@@ -27,9 +27,9 @@ data() {
       }
 },
 methods : {
-      deleteConversation(){
+      deleteevent(){
             if(confirm("êtes-vous sûre de vouloir supprimer cette évènement ?")){
-       this.$api.delete(`channels/${this.conversation.id}`)
+       this.$api.delete(`channels/${this.event.id}`)
        .then( () =>{
          this.afficher = false;
        })

@@ -1,18 +1,15 @@
 <?php
-/**
- * File:  index.php
- *
- */
 
 require_once  __DIR__ . '/../src/vendor/autoload.php';
+
+session_start();
 
 use \Psr\Http\Message\ServerRequestInterface as Request ;
 use \Psr\Http\Message\ResponseInterface as Response ;
 
 use reu\back1\app\models\User;
 
-
-$conf = parse_ini_file(__DIR__ .'/../src/app/conf/commande.db.conf.ini.dist');
+$conf = parse_ini_file(__DIR__ .'/../src/app/conf/back1.db.conf.ini.dist');
 
 $db = new Illuminate\Database\Capsule\Manager();
 
@@ -20,41 +17,62 @@ $db->addConnection($conf);
 $db->setAsGlobal();           
 $db->bootEloquent();   
 
-
 $config = require_once __DIR__. '/../src/app/conf/settings.php';
-$deps = require_once __DIR__.'/../src/app/conf/dependencies.php';
+$deps = require_once __DIR__.'/../src/app/conf/deps.php';
+$errors = require_once __DIR__.'/../src/app/conf/error.php';
 
-$c=new \Slim\Container(array_merge($config, $deps));
+$c=new \Slim\Container(array_merge($config, $deps, $errors));
 
 $app = new \Slim\App($c);
 
-$app->get('/hello/{name}',
-    function (Request $req, Response $resp, $args) {
-        $name = $args['name'];
-        $dbfile = $this->settings['dbfile'];
+// Affiche tous les events
+$app->get('/events[/]', \reu\back1\app\controller\EventController::class.':getEvents');
 
-        $r = User::select()->get();
-        foreach($r as $l){
-            echo $l->fullname; 
-        }
+//Affiche toutes infos d'un event si le user a les droits
+$app->get('/event/{id}[/]', \reu\back1\app\controller\EventController::class.':getEvent')->add(new \reu\back1\app\middleware\Middleware($c));
 
-        $resp->getBody()->write("<h1>Hello, $name </h1> <h2>$dbfile</h2>");
-        return $resp;
-    }
-);
+//Affiche toutes infos d'un event public
+$app->get('/public_event/{token}[/]', \reu\back1\app\controller\EventController::class.':getPublicEvent');
 
-//Les routes de l'application
-require_once __DIR__ . '/../src/app/routes/routes.php';
+// Création d'un event
+$app->post('/event[/]', \reu\back1\app\controller\EventController::class.':createEvent');
 
+// Maj des infos d'un event
+$app->put('/event/{id}[/]', \reu\back1\app\controller\EventController::class.':editEvent')->add(new \reu\back1\app\middleware\Middleware($c));
+
+// Suppression d'un event
+$app->delete('/event/{id}[/]', \reu\back1\app\controller\EventController::class.':deleteEvent')->add(new \reu\back1\app\middleware\Middleware($c));
+
+// Affiche tous les commentaires d'un user
+$app->get('/comments[/]', \reu\back1\app\controller\CommentController::class.':getComments');
+
+// // Affiche tous les commentaires d'un user sur un event précis
+$app->get('/comments/{id}[/]', \reu\back1\app\controller\CommentController::class.':getComment')->add(new \reu\back1\app\middleware\Middleware($c));
+
+// Affiche tous les commentaires d'un event public
+$app->get('/public_comments/{token}[/]', \reu\back1\app\controller\CommentController::class.':getPublicComments');
+
+//Permet à un user de poster un commentaire sur un event précis
+$app->post('/comment/{id}[/]', \reu\back1\app\controller\CommentController::class.':postComment')->add(new \reu\back1\app\middleware\Middleware($c));
+
+//Affiche tous les users
+$app->get('/users[/]', \reu\back1\app\controller\MemberController::class.':getAllUsers');
+
+// Affiche toutes les infos sur un user précis
+$app->get('/user/{id}[/]', \reu\back1\app\controller\MemberController::class.':getOneUser')->add(new \reu\back1\app\middleware\Middleware($c));
+
+//Inscription
+$app->post('/signup[/]', \reu\back1\app\controller\MemberController::class.':signUp');
+//Connexion
+$app->post('/signin[/]', \reu\back1\app\controller\MemberController::class.':signIn');
+
+$app->delete('/signout[/]', memberController::class.':signOut')->setName('signOut');
+//Cors
 $app->add(\reu\back1\app\middleware\Cors::class.':corsHeaders') ;
 
 $app->options('/{routes:.+}',
     function(Request $rq, Response $rs, array $args) {
         return $rs;
     });
-    
+
 $app->run();
-
-
-
-?>

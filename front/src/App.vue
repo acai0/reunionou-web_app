@@ -17,7 +17,8 @@ export default {
       this.seConnecter();
     } else {
       this.$api
-        .get(`members/${this.$store.state.member.id}/signedin`)
+        //.get(`members/${this.$store.state.member.id}/signin`)
+        .get(`members/signin`)
         .then(this.demarrer)
         .catch(this.seConnecter);
     }
@@ -25,7 +26,7 @@ export default {
   methods: {
     seConnecter() {
       this.$store.commit("setToken", false);
-      this.$router.push("/Login");
+      this.$router.push("/login");
       this.ready();
     },
     ready() {

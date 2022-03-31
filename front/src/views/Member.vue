@@ -18,7 +18,7 @@
               <div class="media-right">
                 <router-link
                   div="box"
-                  :to="{ name: 'ModifierProfil' }"
+                  :to="{ name: 'Profil' }"
                   class="button is-success is-small"
                   >Modifier mon profil</router-link
                 >
@@ -27,7 +27,6 @@
                 </button>
               </div>
             </div>
-            <div class="content">Membre depuis le {{ created_at }}</div>
           </div>
         </div>
         <div class="box mt-5">
@@ -37,7 +36,7 @@
           <message
             :message="message"
             :key="message.id"
-            :conversation="conversation"
+            :event="event"
           />
         </template>
       </div>
@@ -55,17 +54,17 @@ export default {
     return {
       member: false,
       allMessages: [],
-      conversation: "",
+      event: "",
       deleteMemberMessage: "",
     };
   },
   mounted() {
     this.member = this.$store.getters.getMember(this.$route.params.idMember);
 
-    this.$api.get("channels").then((response) => {
-      response.data.forEach((conversation) => {
-        this.conversation = conversation;
-        this.$api.get(`channels/${conversation.id}/posts`).then((response) => {
+    this.$api.get("events").then((response) => {
+      response.data.forEach((event) => {
+        this.event = event;
+        this.$api.get(`events/${event.id}/posts`).then((response) => {
           response.data.forEach((message) => {
             if (message.member_id == this.member.id) {
               this.allMessages.push(message);
@@ -81,29 +80,12 @@ export default {
         .sort((ma, mb) => new Date(ma.created_at) < new Date(mb.created_at))
         .slice(0, 10);
     },
-    created_at() {
-      if (this.member) {
-        let date = new Date(this.member.created_at);
-        return (
-          date.toLocaleDateString("fr-FR") +
-          " à " +
-          date.toLocaleTimeString("fr-FR")
-        );
-      }
-    },
   },
   methods: {
     deleteMember() {
-      if (confirm("êtes-vous sûre de vouloir supprimer le membre ?")) {
-        this.$api.delete(`members/${this.member.id}`).then((response) => {
-          this.$router.push("/Members");
-        });
-      }
-    },
-    modifyMember() {
-      if (confirm("êtes-vous sûre de vouloir supprimer le membre ?")) {
-        this.$api.delete(`members/${this.member.id}`).then((response) => {
-          this.$router.push("/Members");
+      if (confirm("êtes-vous sûre de vouloir supprimer votre membre ?")) {
+        this.$api.delete(`user/${this.member.id}`).then((response) => {
+          this.$router.push("/user");
         });
       }
     },

@@ -4,40 +4,40 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '/',
-        name: 'Conversations',
+        path: '/events',
+        name: 'Events',
         component: () =>
-            import ('../views/Conversations.vue')
+            import ('../views/Events.vue')
     },
     {
-        path: '/SingnIn',
-        name: 'SingnIn',
+        path: '/signup',
+        name: 'SignUp',
         component: () =>
-            import ('../views/SingnIn.vue')
+            import ('../views/SignUp.vue')
     },
     {
-        path: '/Login',
+        path: '/login',
         name: 'Login',
         component: () =>
             import ('../views/Login.vue')
     },
     {
-        path: '/createConversation',
-        name: '/createConversation',
+        path: '/createevent',
+        name: '/createEvent',
         component: () =>
-            import ('../views/createConversation.vue')
+            import ('../views/createEvent.vue')
     },
     {
-        path: '/Conversation/:id',
-        name: 'Conversation',
+        path: '/event/:id',
+        name: 'Event',
         component: () =>
-            import ('../views/Conversation.vue')
+            import ('../views/Event.vue')
     },
     {
-        path: '/logOut',
-        name: '/logOut',
+        path: '/signout',
+        name: '/SignOut',
         component: () =>
-            import ('../views/logOut.vue')
+            import ('../views/SignOut.vue')
     },
     {
         path: '/Members',
@@ -52,16 +52,22 @@ const routes = [{
             import ('../views/Member.vue')
     },
     {
-        path: '/EditConversation/:id',
-        name: 'EditConversation',
+        path: '/EditEvent/:id',
+        name: 'EditEvent',
         component: () =>
-            import ('../views/EditConversation.vue')
+            import ('../views/EditEvent.vue')
     },
     {
-        path:'/Invitation',
+        path:'/invitation',
         name:'Invitation',
         component:()=>
         import('../views/Invitation.vue')
+    },
+    {
+        path:'/profil',
+        name:'Profil',
+        component:()=>
+        import('../views/Profil.vue')
     },
     {
         path: '/ModifierProfil',

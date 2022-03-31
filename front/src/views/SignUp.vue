@@ -4,12 +4,12 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-6-tablet is-5-desktop is-4-widescreen">
-            <h1 class="title">COOP</h1>
+            <h1 class="title">REUNIONOU</h1>
             <div class="box">
               <h4 class="title is-4 has-text-centered">S'inscrire</h4>
               <form @submit.prevent="createAccount">
                 <div class="field">
-                  <label class="label">Pseudo</label>
+                  <label class="label">Prénom Nom</label>
                   <div class="control">
                     <input
                       class="input"
@@ -26,7 +26,7 @@
                     <input
                       class="input"
                       type="email"
-                      v-model="email"
+                      v-model="mail"
                       required
                     />
                   </div>
@@ -65,8 +65,8 @@
 export default {
   data() {
     return {
-      fullname: "Alice",
-      email: "a@a.com",
+      fullname: "test",
+      mail: "test@test.com",
       password: "test",
       errorMessage: "",
     };
@@ -74,9 +74,9 @@ export default {
   methods: {
     createAccount() {
       this.$api
-        .post("members", {
+        .post("signup", {
           fullname: this.fullname,
-          email: this.email,
+          mail: this.mail,
           password: this.password,
         })
         .then((response) => {

@@ -2,15 +2,15 @@
   <div>
     <Header />
     <section class="section">
-      <h4 class="title is-4 has-text-centered">Mes Evenements</h4>
+      <h4 class="title is-4 has-text-centered">Mes évènements</h4>
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-11-tablet is-10-desktop is-9-widescreen">
-            <template v-for="conversation in conversations">
-              <conversation
+            <template v-for="event in events">
+              <event
                 class="box"
-                :key="conversation.id"
-                :conversation="conversation"
+                :key="event.id"
+                :event="event"
               />
             </template>
           </div>
@@ -20,19 +20,19 @@
   </div>
 </template>
 <script>
-import Conversation from "../components/Conversation.vue";
+import Event from "../components/Event.vue";
 export default {
   components: {
-    Conversation,
+    Event,
   },
   data() {
     return {
-      conversations: [],
+      events: [],
     };
   },
   mounted() {
-    this.$api.get("channels").then((response) => {
-      this.conversations = response.data;
+    this.$api.get("events").then((response) => {
+      this.events = response.data;
     });
   },
 };

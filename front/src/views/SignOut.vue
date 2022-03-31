@@ -7,7 +7,7 @@ export default {
   mounted() {
     this.$store.commit("setToken", false);
     setTimeout(() => {
-      this.$router.push("/Login");
+      this.$router.push("/login");
     }, 100);
   },
 };

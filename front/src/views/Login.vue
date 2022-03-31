@@ -4,7 +4,7 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-6-tablet is-5-desktop is-4-widescreen">
-            <h1 class="title">COOP</h1>
+            <h1 class="title">REUNIONOU</h1>
             <div class="box">
               <h4 class="title is-4 has-text-centered">Se connecter</h4>
               <form @submit.prevent="loginAccount">
@@ -14,7 +14,7 @@
                     <input
                       class="input"
                       type="email"
-                      v-model="email"
+                      v-model="mail"
                       required
                     />
                   </div>
@@ -39,7 +39,7 @@
             </div>
             <div class="box">
               Pas encore inscrit ?
-              <router-link class="is-text" to="/singnIn"
+              <router-link class="is-text" to="/signup"
                 >S'inscrire</router-link
               >
             </div>
@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      email: "a@a.com",
+      mail: "test@test.com",
       password: "test",
       errorMessage: "",
     };
@@ -66,14 +66,14 @@ export default {
   methods: {
     loginAccount() {
       this.$api
-        .post("members/signin", {
-          email: this.email,
+        .post("/signin", {
+          mail: this.mail,
           password: this.password,
         })
         .then((response) => {
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setMember", response.data.member);
-          this.$router.push("/");
+          this.$router.push("/events");
           this.errorMessage = "";
         })
         .catch((error) => {

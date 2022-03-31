@@ -13,7 +13,7 @@
 </template>
 <script>
 export default {
-props : ["conversation"],
+props : ["event"],
  data(){
         return {
             message : '',
@@ -21,8 +21,8 @@ props : ["conversation"],
     },
     methods : {
         poster(){
-            this.$api.post(`channels/${this.conversation.id}/posts`,{
-                channel_id : this.conversation.id,
+            this.$api.post(`events/${this.event.id}/posts`,{
+                channel_id : this.event.id,
                 message : this.message,
                 member_id : this.$store.state.member.id}).then(response =>{
                    this.$bus.$emit('newMessage',response.data);

@@ -21,15 +21,15 @@
           }}</l-tooltip>
         </l-marker>
       </l-map>
-      <div class="media box" v-if="conversation">
+      <div class="media box" v-if="event">
         <div class="media-content">
           <div class="content">
             <p class="title is-4">
-              {{ conversation.topic }}
+              {{ event.topic }}
               <span class="tag"> {{ messages.length }} message(s)</span>
             </p>
             <p class="subtitle is-6 tag is-rounded is-warning">
-              {{ conversation.label }}
+              {{ event.label }}
             </p>
             <br />
           </div>
@@ -37,12 +37,12 @@
         <div class="media-right">
           <router-link
             div="box"
-            :to="{ name: 'EditConversation', params: { id: conversation.id } }"
+            :to="{ name: 'EditEvent', params: { id: event.id } }"
             class="button is-success is-small"
             >Modifier</router-link
           >
           <button
-            @click="deleteConversation"
+            @click="deleteEvent"
             class="button button is-danger is-small"
           >
             Supprimer
@@ -84,7 +84,7 @@ export default {
   },
   mounted() {
     let id = this.$route.params.id;
-    this.$api.get(`channels/${id}`).then((response) => {
+    this.$api.get(`event/${id}`).then((response) => {
       this.conversation = response.data;
       this.chargerMessage();
     });
@@ -95,7 +95,7 @@ export default {
   methods: {
     chargerMessage() {
       this.$api
-        .get(`channels/${this.conversation.id}/posts`)
+        .get(`event/${this.conversation.id}/posts`)
         .then((response) => {
           this.messages = response.data;
         });

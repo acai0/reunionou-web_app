@@ -23,7 +23,7 @@ $app->post('/events/createevent[/]', eventController::class. ':createEvent')->se
 
 
 //Route pour modifier le contenu d'un événement
-//$app->put('/events/{id}[/]', eventController::class. ':putEvent')->setName('putEvent');
+$app->put('/events/{id}[/]', eventController::class. ':putEvent')->setName('putEvent');
 
 
 //Route pour les participants d'un événement

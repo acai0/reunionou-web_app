@@ -211,10 +211,10 @@ export default {
   
   participateEvent(response) {
     if (response == true) {
-      this.$refs.participate;
+      this.$refs.participe;
     }
     if (response == false) {
-      this.$refs.notparticipate;
+      this.$refs.participePas;
     }
     // Appel de l'API pour donné sa réponse à l'invitation d'un évènement, si response est à: true = participe, null = en attente, false = ne participe pas
   },

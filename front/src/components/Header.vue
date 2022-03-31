@@ -4,7 +4,7 @@
   <!-- rendre le header responsive -->
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <router-link class="navbar-item reu" to="/"><a href="/"><img src="../img/Reunionou.png"/></a></router-link>
+      <router-link class="navbar-item reu" to="/events"><a href="../views/Events.vue"><img src="../img/Reunionou.png"/></a></router-link>
     </div>
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">

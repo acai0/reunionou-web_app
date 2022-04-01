@@ -64,10 +64,10 @@ class EventController {
         $eventData = $req->getParsedBody();
 
         if (!isset($eventData['title'])) {
-            return Writer::json_error($resp, 400, "Le champ 'fullname' ne doit pas être vide et doit être valide");
+            return Writer::json_error($resp, 400, "Le champ 'title' ne doit pas être vide et doit être valide");
         }
         if (!isset($eventData['desc'])) {
-            return Writer::json_error($resp, 400, "Le champ 'email' ne doit pas être vide et doit être valide");
+            return Writer::json_error($resp, 400, "Le champ 'desc' ne doit pas être vide et doit être valide");
         }
         if (!isset($eventData['date'])) {
             return Writer::json_error($resp, 400, "Le champ 'date' ne doit pas être vide et doit être valide");
@@ -111,10 +111,10 @@ class EventController {
         $eventData = $req->getParsedBody();
 
         if (!isset($eventData['title'])) {
-            return Writer::json_error($resp, 400, "Le champ 'fullname' ne doit pas être vide et doit être valide");
+            return Writer::json_error($resp, 400, "Le champ 'title' ne doit pas être vide et doit être valide");
         }
         if (!isset($eventData['desc'])) {
-            return Writer::json_error($resp, 400, "Le champ 'email' ne doit pas être vide et doit être valide");
+            return Writer::json_error($resp, 400, "Le champ 'desc' ne doit pas être vide et doit être valide");
         }
         if (!isset($eventData['date'])) {
             return Writer::json_error($resp, 400, "Le champ 'date' ne doit pas être vide et doit être valide");

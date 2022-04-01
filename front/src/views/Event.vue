@@ -89,7 +89,8 @@ export default {
       this.chargerMessage();
     });
     this.$bus.$on("newMessage", (data) => {
-      this.chargerMessage();
+      this.chargerMessa
+      ge();
     });
   },
   methods: {

@@ -26,15 +26,9 @@
                 </div>
               </div>
                <div class="field">
-                <label class="label">Date</label>
+                <label class="label">Date heure</label>
                 <div class="control">
                   <input class="input" v-model="editedEvent.date" />
-                </div>
-              </div>
-               <div class="field">
-                <label class="label">Heure</label>
-                <div class="control">
-                  <input class="input" v-model="editedEvent.heure" />
                 </div>
               </div>
               <div class="buttons">
@@ -51,7 +45,11 @@
   </section>
 </template>
 <script>
+import posterMessage from "../components/posterMessage.vue";
 export default {
+   components: {
+    posterMessage,
+   },
   data() {
     return {
         idEvent : this.$route.params.id,
@@ -60,7 +58,6 @@ export default {
         topic: "",
         place:"",
         date:"",
-        heure:"",
       },
     };
   },
@@ -70,16 +67,19 @@ export default {
           this.editedEvent.topic = response.data.topic;
            this.editedEvent.place = response.data.place;
             this.editedEvent.date = response.data.date;
-             this.editedEvent.heure = response.data.heure;
       })
   },
   methods: {
       //Si aucune modification n'est faite sur le sujet et label, leurs ancienne valeurs restent ainsi.
     editEvent() {
       this.$api
-        .put(`/events/${this.idEvent}`,this.editedEvent)
+        .put(`/events/$${this.idEvent}}`,this.editedEvent)
         .then(() => {
-        this.$router.push('/events');
+        //this.$router.push('/events');
+          this.$router.push({
+            name: "Event",
+            params: { id: response.data.id },
+        });
         })
         .catch((error) => {
           alert(error.response.data.message);

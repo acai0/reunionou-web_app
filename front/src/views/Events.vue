@@ -13,6 +13,14 @@
                 :event="event"
               />
             </template>
+            
+            <!--
+               <posterEvent :event="event" />
+      <h4 class="title is-4">Evénenement</h4>
+      <template v-for="event in events">
+        <event :event="event" :key="event.id" />
+      </template>
+      -->
           </div>
         </div>
       </div>
@@ -21,8 +29,10 @@
 </template>
 <script>
 import Event from "../components/Event.vue";
+import PostEvent from "../components/PostEvent.vue";
 export default {
   components: {
+    PostEvent,
     Event,
   },
   data() {

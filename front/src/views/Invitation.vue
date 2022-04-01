@@ -153,12 +153,10 @@ export default {
     return {
       participe: [],
       participePas: [],
-      error: false,
       success: false,
       title: "",
       description: "",
-      date: "",
-      time: "",
+      datetime: "",
       place: "",
       initialLocation: [48.6829037, 6.1613428],
       markers: [],

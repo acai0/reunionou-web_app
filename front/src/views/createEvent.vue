@@ -10,7 +10,7 @@
                     <div class="card">
                         <h4 class="title is-4 has-text-centered">Nouvel évènement</h4>
                         <div class="card-body">
-                            <form @submit.prevent="postEvent()">
+                            <form @submit.prevent="posterEvent()">
                                <div class="field">
                 <label class="label">Titre</label>
                 <div class="control">
@@ -32,17 +32,10 @@
               <div class="field">
                 <label class="label">Date</label>
                 <div class="control">
-                  <input class="input" v-model="date" />
+                  <input class="input" v-model="datetime" />
                 </div>
               </div>
-              <div class="field">
-                <label class="label">Heure</label>
-                <div class="control">
-                  <input class="input" v-model="time" />
-                </div>
-              </div>
-
-                                <l-map v-if="showMap" :zoom="zoom" :center="initialLocation" :options="mapOptions"
+                        <l-map v-if="showMap" :zoom="zoom" :center="initialLocation" :options="mapOptions"
                                     style="height: 350px; width: 100%;" @update:center="centerUpdate"
                                     @update:zoom="zoomUpdate" @click="handleMapClick">
                                     <l-tile-layer :url="url" :attribution="attribution" />
@@ -50,8 +43,8 @@
                                         <l-tooltip :options="{ permanent: true, interactive: true }">{{ location }}</l-tooltip>
                                     </l-marker>
                                 </l-map>
-                                 <div @click="postEvent()" class="buttons">
-                <button class="button is-info is-outlined">Créer</button>
+                                 <div @click="posterEvent()" class="buttons">
+                <button class="button is-info is-outlined" type="submit" @click="posterEvent">Créer</button>
                 <router-link class="button is-outlined" to="/"
                   >Annuler</router-link
                 >
@@ -97,8 +90,7 @@ export default {
         success: false,
         title: '',
         description: '',
-        date: '',
-        time: '',
+        datetime: '',
         location: '',
         initialLocation: [46.227638, 2.213749],
         markers: [],
@@ -121,18 +113,23 @@ export default {
       }
   },
   methods: {
-    postEvent() {
-        this.$api.post('event', {
+    posterEvent() {
+        this.$api.post(`event/`, {
              title: this.title,
              description: this.description,
-             date: this.date + ' ' + this.time,
+             datetime: this.datetime,
              location: this.location,
+              idCreateur: this.$store.state.member.id,
              x: this.x,
              y: this.y
           }).then(response => {
               if(response.data.post) {
                 alert("L'évènement a été créé !");
-                this.$router.push('/events');
+                //this.$router.push('/events');
+                 this.$router.push({
+            name: "Event",
+            params: { id: response.data.id },
+                 });
               } else {
                   this.error = response.data.message;
               }
